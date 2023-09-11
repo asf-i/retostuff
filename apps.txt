@@ -4,3 +4,9 @@ Firefox
 Discord
 Gimp
 Blender
+lxappearance
+libxcursor
+ctags
+
+Cursors in /usr/share/icons
+Theme: Adwaita-dark
