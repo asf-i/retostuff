@@ -1,0 +1,6 @@
+Thunar
+Thunderbird
+Firefox
+Discord
+Gimp
+Blender
