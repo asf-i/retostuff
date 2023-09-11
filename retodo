@@ -1,0 +1,9 @@
+#!/bin/bash
+
+input=$1
+
+if [[ $input == "cam" ]]; then
+	mpv av://v4l2:/dev/video0 --profile=low-latency --untimed
+elif [[ $input == "cisco" ]]; then
+	gtk-launch com.cisco.secureclient.gui
+fi

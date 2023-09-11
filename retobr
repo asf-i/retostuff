@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+input=$1
+
+set() {
+	echo $input | sudo tee /sys/class/backlight/nvidia_wmi_ec_backlight/brightness
+}
+
+
+
+if [[ $input == "check" ]]; then
+	echo "Die Helligkeit ist jetzt $(cat /sys/class/backlight/nvidia_wmi_ec_backlight/brightness)"
+	echo "(Maximale Helligkeit: $(cat /sys/class/backlight/nvidia_wmi_ec_backlight/max_brightness))"
+else
+	if [[ $input == "max" ]]; then
+		echo "MAXIMALE HELLIGKEIT!"
+		input=$(cat /sys/class/backlight/nvidia_wmi_ec_backlight/max_brightness)
+	elif [ "$input" -gt "$(cat /sys/class/backlight/nvidia_wmi_ec_backlight/max_brightness)" ]; then
+		input=$(cat /sys/class/backlight/nvidia_wmi_ec_backlight/max_brightness)
+		echo "Ich mach mal so hell wie möglich"
+	elif [ "$input" -lt 5 ]; then
+		input=5
+		echo "Es soll ja nicht zu dunkel werden :)"
+	fi
+
+	set
+fi

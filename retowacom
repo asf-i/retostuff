@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+xsetwacom set 'Wacom Intuos BT M Pen stylus' Button 3 "key +control z -control"
+xsetwacom set 'Wacom Intuos BT M Pad pad' Button 3 "key +control y -control" && xsetwacom set 'Wacom Intuos BT M Pad pad' Button 8 3
+
+echo Pen 3: Ctrl+z
+echo Pad 3: Ctrl+y
+echo Pad 8: Rightclick
