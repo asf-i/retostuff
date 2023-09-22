@@ -7,6 +7,7 @@ Blender
 lxappearance
 libxcursor
 ctags
+nvidia-prime
 
 Cursors in /usr/share/icons
 Theme: Adwaita-dark
