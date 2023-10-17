@@ -1,6 +1,8 @@
 #!/bin/sh
 # Script wurde heruntergeladen von https://github.com/IanLeCorbeau/dotfiles/blob/master/.local/bin/statusbar.sh
 
+space="     "
+
 ram() {
 	mem=$(free -h | awk '/Mem:/ { print $3 }' | cut -f1 -d 'i')
 	echo  "$mem"
@@ -13,7 +15,7 @@ cpu() {
 	read -r cpu a b c idle rest < /proc/stat
 	total=$((a+b+c+idle))
 	cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-	echo "CPU: $cpu"%
+	echo " $cpu"%
 }
 
 volume_alsa() {
@@ -29,14 +31,14 @@ volume_alsa() {
 	fi
 
 	if [ $(pulsemixer --get-mute) == 1 ]; then
-		echo "VOL: muted"
+		echo " $vol%"
 	else
-		if [ "$vol" -ge 65 ]; then
-			echo "VOL: $vol%"
-		elif [ "$vol" -ge 40 ]; then
-			echo "VOL: $vol%"
+		if [ "$vol" -ge 60 ]; then
+			echo " $vol%"
+		elif [ "$vol" -ge 20 ]; then
+			echo " $vol%"
 		elif [ "$vol" -ge 0 ]; then
-			echo "VOL: $vol%"	
+			echo " $vol%"	
 		fi
 	fi
 }
@@ -45,29 +47,39 @@ clock() {
 	dte=$(date +"%d.%m.%Y")
 	time=$(date +"%H:%M")
 
-	echo "$time   $dte"
+	echo " $time$space $dte"
 }
 
 battery() {
 	cap=$(cat /sys/class/power_supply/BAT0/capacity)
-	
-	if [[ $(cat /sys/class/power_supply/BAT0/status) == "Charging" ]]; then
-		echo "BAT: $cap% (+)"
-	elif [[ $(cat /sys/class/power_supply/BAT0/status) == "Discharging" ]]; then
-		echo "BAT: $cap% (-)"
+
+	if [ $cap -gt 90 ]; then
+		symbol=""
+	elif [ $cap -gt 65 ]; then
+		symbol=""
+	elif [ $cap -gt 35 ]; then
+		symbol=""
+	elif [ $cap -gt 10 ]; then
+		symbol=""
 	else
-		echo "BAT: $cap%"
+		symbol=""
+	fi
+
+	if [[ $(cat /sys/class/power_supply/BAT0/status) == "Charging" ]]; then
+		echo " $cap%"
+	else
+		echo "$symbol $cap%"
 	fi
 }
 
 brightness() {
 	screenBrightness=$(cat /sys/class/backlight/nvidia_wmi_ec_backlight/brightness)
-	echo "SCR: $screenBrightness"
+	echo " $screenBrightness"
 }
 
 main() {
 	while true; do
-		xsetroot -name " $(volume_alsa) // $(brightness) // $(cpu) // $(battery) // $(clock) "
+		xsetroot -name "$(volume_alsa)$space$(brightness)$space$(cpu)$space$(battery)$space$(clock) "
 		sleep 5
 	done
 }
