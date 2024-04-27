@@ -2,9 +2,6 @@ LIBRARIES:	https://tldp.org/HOWTO/Program-Library-HOWTO/index.html
 
 Kernel Parameter, die ich geadded hatte: nomodeset i915.enable_psr=0
 
-Hoengg2017
-
-
 ----------------------------------------
 ----------------------------------------
 
