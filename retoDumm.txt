@@ -1,0 +1,157 @@
+LIBRARIES:	https://tldp.org/HOWTO/Program-Library-HOWTO/index.html
+
+Kernel Parameter, die ich geadded hatte: nomodeset i915.enable_psr=0
+
+Hoengg2017
+
+
+----------------------------------------
+----------------------------------------
+
+** WLAN **
+Das folgende ist über iwd:
+	sudo systemctl enable iwd
+	sudo systemctl start iwd
+	iwctl
+	device list
+	adapter phy0 set-property Powered on
+	station wlan0 scan
+	station wlan0 get-networks
+	station wlan0 connect WlanName
+	exit
+Jetzt läuft es über networkmanager:
+	sudo systemctl enable NetworkManager
+	sudo systemctl start NetworkManager
+	nmtui
+	nmcli
+	nmcli connection show
+	nmcli device wifi list
+	
+	für das ETH wlan:
+		Sicherheit ist WPA/WPA2-Enterprise
+		hab dann den Command eingegeben: (Sachen in nur Grossbuchstaben halt eingefügt)
+		nmcli connection add type wifi connection.id NAME wifi.ssid SSID wifi.mode infrastructure wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.identity IDENTITY 802-1x.phase2-auth mschapv2 802-1x.password PASSWORD
+
+
+
+
+** BLUETOOTH **
+Wenn es nicht geht, versuchen "rfkill unblock bluetooth"
+
+sudo systemctl start bluetooth
+bluetoothctl
+power on
+agent on
+scan on
+
+trust xx:xx:xx
+pair xx:xx:xx
+connect xx:xx:xx
+
+devices
+
+
+
+
+** USB-STICK MOUNTING **
+Wird eigentlich von udiskie übernommen. (gestartet in .xinitrc)
+Wenn das nicht funktioniert geht es manuell über diese Commands:
+
+udiskie-mount /dev/xxx
+udiskie-umount /dev/xxx
+
+Wenn das nicht geht, probiere direkt mit udisks2:
+
+udiskctl mount -b /dev/xxx
+udiskctl unmount -b /dev/xxx
+
+Um udiskie zu beenden: pkill udiskie
+
+
+
+
+** WEBCAM SO BENUTZEN **
+--> https://wiki.archlinux.org/title/Webcam_setup
+mpv av://v4l2:/dev/video0 --profile=low-latency --untimed
+s drücken, für einen Snapshot
+
+
+
+
+** BILDSCHIRM DPI ÄNDERN **
+In ~/.Xresources zum Beispiel schreiben: Xft.dpi: 192
+DPI ist ein vielfaches von 96. 96 Ist quasi standard.
+
+
+
+
+** LIBINPUT CONFIG FILE **
+Der file ist bei /usr/share/X11/xorg.conf.d/
+Bei pointer:
+	Option "AccelProfile" "flat"
+	Option "AccelSpeed" "0.4"
+Bei touchpad:
+	Option "NaturalScrolling" "on"
+	Option "ScrollMethod" "twofinger"
+	Option "ScrollPixelDistance" "20"
+	Option "Tapping" "on"
+	Option "AccelProfile" "flat"
+	Option "AccellSpeed" "0.75"
+
+
+
+
+** WACOM TABLET GEHT BEI GIMP NICHT **
+Ich habe den bash script downgrade aus dem AUR benutzt um xf86-input-wacom
+auf die Version 1.1.0 zurückzusetzen.
+	sudo downgrade xf86-input-wacom
+Damit sich das Paket nicht mit jedem pacman -Syu wieder updated wurde auch
+in /etc/pacman.conf die folgende Zeile hinzugefügt:
+	IgnorePkg = xf86-input-wacom
+
+
+
+
+** WACOM TABLET EINSTELLUNGEN **
+https://wiki.archlinux.org/title/Graphics_tablet
+
+xsetwacom list devices
+Bsp:	xsetwacom set 11 Button 3 "key r"
+Zum buttons rausfinden:	xev -event button
+Zum allgemein Inputs rausfinden: xev
+Bash script: retowacom
+
+
+
+
+** FILE EXECUTABLE MACHEN **
+sudo chmod +x filename
+
+
+
+
+** CALCULATOR / RECHNER **
+bc
+
+
+
+
+** NVIDIA KARTE BENUTZEN **
+prime-run filename
+
+
+
+
+** BASH BEARBEITEN, ZB PROMPT ODER ALIASE **
+~/.bashrc bearbeiten
+
+
+
+
+
+** OUTPUT VON COMMAND IN FILE SCHREIBEN **
+COMMAND | tee FILE
+mit COMMAND als der command und FILE als der file
+
+----------------------------------------
+----------------------------------------
