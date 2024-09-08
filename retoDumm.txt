@@ -33,7 +33,8 @@ Jetzt läuft es über networkmanager:
 
 
 ** BLUETOOTH **
-Wenn es nicht geht, versuchen "rfkill unblock bluetooth"
+Wenn es nicht geht, schau ob geblockt "rfkill list",
+und/oder versuch "rfkill unblock bluetooth"
 
 sudo systemctl start bluetooth
 bluetoothctl
@@ -93,7 +94,8 @@ Bei touchpad:
 	Option "ScrollPixelDistance" "20"
 	Option "Tapping" "on"
 	Option "AccelProfile" "flat"
-	Option "AccellSpeed" "0.75"
+	Option "AccelSpeed" "1.00"
+Weitere configuration habe ich in configureInput.sh gemacht (selber erstellt)
 
 
 
@@ -149,6 +151,15 @@ prime-run filename
 ** OUTPUT VON COMMAND IN FILE SCHREIBEN **
 COMMAND | tee FILE
 mit COMMAND als der command und FILE als der file
+
+
+
+
+
+** VIM **
+Substitute once: 	s/old/new
+Substitute line:	s/old/new/g
+Substitute file:	%s/old/new/g
 
 ----------------------------------------
 ----------------------------------------
