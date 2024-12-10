@@ -161,5 +161,24 @@ Substitute once: 	s/old/new
 Substitute line:	s/old/new/g
 Substitute file:	%s/old/new/g
 
+
+
+
+
+** REDSHIFT **
+Instant Farbwechsel:	redshift -P -O TEMPERATURE
+TEMPERATURE zwischen 1000 und 25000
+TEMPERATURE default value ist 6500
+Temperatur reset:	redshift -x
+
+
+
+
+
+** UNZIP ** 
+tar -xf
+
+
+
 ----------------------------------------
 ----------------------------------------
