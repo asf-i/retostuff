@@ -32,6 +32,13 @@ Jetzt läuft es über networkmanager:
 
 
 
+** PACMAN **
+Basic Uninstall (leaves dependencies):	sudo pacman -R <PACKAGE_NAME>
+Uninstall + unused dependencies:	sudo pacman -Rs <PACKAGE_NAME>
+
+
+
+
 ** BLUETOOTH **
 Wenn es nicht geht, schau ob geblockt "rfkill list",
 und/oder versuch "rfkill unblock bluetooth"
@@ -77,8 +84,13 @@ s drücken, für einen Snapshot
 
 
 ** BILDSCHIRM DPI ÄNDERN **
-In ~/.Xresources zum Beispiel schreiben: Xft.dpi: 192
-DPI ist ein vielfaches von 96. 96 Ist quasi standard.
+Für die Infos: xrandr
+Set primary display: xrandr --output <BLAH> --primary
+Turn off a display:  xrandr --output <BLAH> --off
+Set a resolution:    xrandr --output <BLAH> --mode 1920x1080
+DPI ändern:
+	In ~/.Xresources zum Beispiel schreiben: Xft.dpi: 192
+	DPI ist ein vielfaches von 96. 96 Ist quasi standard.
 
 
 
@@ -161,6 +173,8 @@ Substitute once: 	s/old/new
 Substitute line:	s/old/new/g
 Substitute file:	%s/old/new/g
 
+Folding: zc, zo
+
 
 
 
@@ -178,6 +192,20 @@ Temperatur reset:	redshift -x
 ** UNZIP ** 
 tar -xf
 
+
+
+
+
+** NVIM EDITOR WARNINGS **
+erstelle .clangd file im Projektordner mit diesem Inhalt:
+CompileFlags:
+	Add:
+		- "-I<pfad>"
+Wobei <pfad> durch den Pfad zu den header Files ist
+Bei devkitpro 3ds ist es also:
+CompileFlags:
+  Add:
+    - "-I/opt/devkitpro/libctru/include"
 
 
 ----------------------------------------
